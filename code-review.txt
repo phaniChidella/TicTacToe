@@ -1,0 +1,25 @@
+Code Review of original Tic Tac Toe code and Violations of Best Practices
+
+Violation 1: Modularity
+
+	Issue: The given code for tic-tac-toe implements initializations and game logic in a prose format within a single file. This makes maintenance of code extremely difficult as it is not properly organized into hierarchies and logical sections. Also, the logic for checking the win condition uses redundant if conditions based on the origin button.
+
+	Fix: The code has been segregated into hierarchical classes and methods to avoid redundancy. The winning logic checks the game board as a whole irrespective of origin.
+
+Violation 2: Data Hiding / Open-Closed principle
+
+	Issue: The entire logic and all methods of the game are in the driver class itself, and the member variables are public, thus exposing it to the end user for modification. For example, the GUI cannot be changed without making changes to the logic of the game. A good design should provide separation of data and logic.
+
+	Fix: The code has been separated into Model, View and Controller classes with each class having its own private member variables that cannot be accessed or modified by the outside world. 
+
+Violation 3: Extensibility
+
+	Issue: Since there is no separation in the logic of the game from the view or controls, it cannot be extended in the future to support, say, different input methods (such as from the terminal) or changing the visualization without affecting the model of the game.
+
+	Fix: The MVC approach used decouples the view, controller and models and allows modification of either component exclusively without making changes to the others. The Adapter class used will allow other input methods like reading moves from the terminal in the future, if desired.
+
+Violation 4: Testability
+
+	Issue: On account of the entire program residing within a single class, bugs in the program cannot be easily identified since its difficult to know which component triggered the failure. 
+
+	Fix: The separation of logic, view and controls of the game allows unit tests to be written for each component thereby allowing quick and easy identification of the faulty component.
